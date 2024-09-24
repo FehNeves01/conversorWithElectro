@@ -34,7 +34,7 @@ module.exports = {
           owner: "FehNeves01",
           name: "conversorWithElectro",
         },
-        prerelease: false, // Defina como true se quiser lançar versões prévias
+        prerelease: false, 
       },
     },
   ],
@@ -56,7 +56,7 @@ module.exports = {
             },
           ],
         },
-        loggerPort: 9001, // Altere para uma porta disponível, como 9001
+        loggerPort: 9001, 
       },
     },
     new FusesPlugin({
