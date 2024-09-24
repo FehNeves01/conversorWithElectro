@@ -1,7 +1,7 @@
 {
   "name": "all-conversor",
   "productName": "all-conversor",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Aplicativo para gerar Arquivos Bil",
   "build": {
     "publish": [

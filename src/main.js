@@ -12,14 +12,17 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 600,
     height: 300,
-    // webPreferences: {
-    //   preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
-    // },
+    webPreferences: {
+      // preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      nodeIntegration: true,
+    },
   });
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
   autoUpdater.checkForUpdatesAndNotify();
+  autoHideMenuBar: false, // Oculta a barra de menu, mas exibe quando a tecla Alt é pressionada
+    win.setMenu(null);
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
