@@ -3,30 +3,39 @@ name: Build and Release Electron App
 on:
   push:
     tags:
-      - '*'
+      - '*'  # O workflow será disparado quando um push de uma tag for feito
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
+        os: [macos-latest, windows-latest]  # Executa para macOS e Windows
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Check out the repository
+        uses: actions/checkout@v2  # Verifica o código do repositório
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: 16  # Define a versão do Node.js
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci  # Instala as dependências usando npm ci para garantir consistência
 
       - name: Make the app
-        run: npm run make -- --platform=${{ matrix.os }}
+        run: npm run make  # Constrói o app usando Electron Forge
 
       - name: Publish to GitHub Releases
         env:
-          GITHUB_TOKEN: ${{ secrets.TEST_SECRET }}
-        run: npm run publish
+          GITHUB_TOKEN: ${{ secrets.TEST_SECRET }}  # Usa o token para autenticar no GitHub
+        run: npm run publish  # Publica o app no GitHub Releases
